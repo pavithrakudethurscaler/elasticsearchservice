@@ -1,0 +1,7 @@
+# Downloaded Elasticsearch distribution and its data/logs (created by the scripts)
+elasticsearch/
+data/
+logs/
+*.zip
+*.tar.gz
+*.sha512

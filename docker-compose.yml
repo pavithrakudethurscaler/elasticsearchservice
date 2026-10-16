@@ -1,0 +1,22 @@
+# Elasticsearch for Linux / container environments: the same single-node setup as scripts/start-elasticsearch.sh.
+#   docker compose up -d     start on localhost:9200
+services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.18.1
+    container_name: ecom-elasticsearch
+    ports:
+      - "127.0.0.1:9200:9200"
+    environment:
+      cluster.name: ecom
+      node.name: ecom-node-1
+      discovery.type: single-node
+      # Local development only: no TLS / passwords (see README)
+      xpack.security.enabled: "false"
+      xpack.ml.enabled: "false"
+      ingest.geoip.downloader.enabled: "false"
+      ES_JAVA_OPTS: -Xms512m -Xmx512m
+    volumes:
+      - es-data:/usr/share/elasticsearch/data
+
+volumes:
+  es-data:

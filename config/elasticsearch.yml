@@ -1,0 +1,24 @@
+# Single-node Elasticsearch for local development of the ecom platform (product search, HLD 3.2).
+# Copied into elasticsearch/config/ by scripts/start-elasticsearch.sh; data and log paths are set there.
+
+cluster.name: ecom
+node.name: ecom-node-1
+discovery.type: single-node
+
+# Bound to localhost only: not reachable from other machines
+network.host: 127.0.0.1
+http.port: 9200
+
+# Security (TLS + passwords) is OFF for local development only, so services can connect over plain HTTP.
+# Never expose this node to a network with these settings; see README "Not for production as-is".
+xpack.security.enabled: false
+xpack.security.enrollment.enabled: false
+xpack.security.http.ssl.enabled: false
+xpack.security.transport.ssl.enabled: false
+
+# Features the platform does not use: saves memory and avoids outbound downloads (GeoIP databases)
+xpack.ml.enabled: false
+ingest.geoip.downloader.enabled: false
+
+# Deleting indices requires naming them explicitly (no wildcards / _all)
+action.destructive_requires_name: true
